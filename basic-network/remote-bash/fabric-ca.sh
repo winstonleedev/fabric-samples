@@ -1,8 +1,4 @@
-cd ~
-rm -rf fabric-samples
-rm -rf fabric-workdir
-git clone git@github.com:thanhphu/fabric-samples.git
-mkdir fabric-workdir
+
 export FABRIC_CA_HOME=/home/medium/fabric-workdir/fabric-ca-server
 export FABRIC_CA_SERVER_CA_NAME=ca.example.com
 export FABRIC_CA_SERVER_CA_CERTFILE=/home/medium/fabric-workdir/fabric-ca-server-config/ca.org1.example.com-cert.pem
