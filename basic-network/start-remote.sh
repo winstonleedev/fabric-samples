@@ -18,6 +18,15 @@ scp -r ./crypto-config/ordererOrganizations/example.com/orderers/orderer0/ order
 scp -r ./crypto-config/peerOrganizations/org1.example.com/peers/peer1/ orderer0:/home/medium/fabric-workdir/msp/peerOrg1
 ssh fabric-ca 'bash -s' < ./remote-bash/orderer0.sh
 
+scp -r ./crypto-config/peerOrganizations/org1.example.com/peers/peer1.org1.example.com/msp peer1:/home/medium/fabric-workdir/msp/peer
+scp -r ./crypto-config/peerOrganizations/org1.example.com/users peer1:/home/medium/fabric-workdir/msp/users
+scp -r ./config peer1:/home/medium/fabric-workdir/configtx
+ssh fabric-ca 'bash -s' < ./remote-bash/peer1-init.sh
+
+scp -r ./crypto-config/peerOrganizations/org1.example.com/peers/peer2.org1.example.com/msp peer2:/home/medium/fabric-workdir/msp/peer
+scp -r ./crypto-config/peerOrganizations/org1.example.com/users peer2:/home/medium/fabric-workdir/msp/users
+scp -r ./config peer2:/home/medium/fabric-workdir/configtx
+ssh fabric-ca 'bash -s' < ./remote-bash/peer2-init.sh
 
 # wait for Hyperledger Fabric to start
 # incase of errors when running later commands, issue export FABRIC_START_TIMEOUT=<larger number>
@@ -25,7 +34,6 @@ export FABRIC_START_TIMEOUT=10
 #echo ${FABRIC_START_TIMEOUT}
 sleep ${FABRIC_START_TIMEOUT}
 
-# Create the channel
-docker exec -e "CORE_PEER_LOCALMSPID=Org1MSP" -e "CORE_PEER_MSPCONFIGPATH=/etc/hyperledger/msp/users/Admin@org1.example.com/msp" peer1 peer channel create -o orderer0:7050 -c mychannel -f /etc/hyperledger/configtx/channel.tx
-# Join peer1 to the channel.
-docker exec -e "CORE_PEER_LOCALMSPID=Org1MSP" -e "CORE_PEER_MSPCONFIGPATH=/etc/hyperledger/msp/users/Admin@org1.example.com/msp" peer1 peer channel join -b mychannel.block
+ssh fabric-ca 'bash -s' < ./remote-bash/peer1-join.sh
+ssh fabric-ca 'bash -s' < ./remote-bash/peer2-join.sh
+ssh fabric-ca 'bash -s' < ./remote-bash/peer3-join.sh
