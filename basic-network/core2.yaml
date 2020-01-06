@@ -11,7 +11,7 @@
 peer:
 
     # The Peer id is used for identifying this Peer instance.
-    id: peer1
+    id: peer2
 
     # The networkId allows for logical separation of networks
     networkId: dev

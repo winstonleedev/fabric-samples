@@ -1,3 +1,6 @@
+export FABRIC_CFG_PATH="/home/medium/fabric-workdir"
+cd $FABRIC_CFG_PATH
+
 export CORE_PEER_LOCALMSPID=Org1MSP
 export CORE_PEER_MSPCONFIGPATH=/home/medium/fabric-workdir/msp/users/Admin@org1.example.com/msp
 ~/fabric-samples/bin/peer channel create -o orderer0:7050 -c mychannel -f /home/medium/fabric-workdir/configtx/channel.tx
