@@ -10,9 +10,9 @@ set -ev
 # don't rewrite paths for Windows Git Bash users
 export MSYS_NO_PATHCONV=1
 
-ssh fabric-ca 'bash -s' < ./remote-bash/common.sh
-scp -r ./crypto-config/peerOrganizations/org1.example.com/ca fabric-ca:/home/medium/fabric-workdir/fabric-ca-server-config
-ssh fabric-ca 'bash -s' < ./remote-bash/fabric-ca.sh
+# ssh fabric-ca 'bash -s' < ./remote-bash/common.sh
+# scp -r ./crypto-config/peerOrganizations/org1.example.com/ca fabric-ca:/home/medium/fabric-workdir/fabric-ca-server-config
+# ssh fabric-ca 'bash -s' < ./remote-bash/fabric-ca.sh
 
 ssh orderer0 'bash -s' < ./remote-bash/common.sh
 scp -r ./config/ orderer0:/home/medium/fabric-workdir/configtx

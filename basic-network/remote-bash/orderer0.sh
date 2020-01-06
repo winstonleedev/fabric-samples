@@ -6,4 +6,4 @@ export ORDERER_GENERAL_GENESISFILE=/home/medium/fabric-workdir/configtx/genesis.
 export ORDERER_GENERAL_LOCALMSPID=OrdererMSP
 export ORDERER_GENERAL_LOCALMSPDIR=/home/medium/fabric-workdir/msp/orderer/msp
 
-~/fabric-samples/bin/orderer
+nohup ~/fabric-samples/bin/orderer &

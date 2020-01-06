@@ -6,4 +6,4 @@ export CORE_PEER_LOCALMSPID=Org1MSP
 export CORE_PEER_MSPCONFIGPATH=/home/medium/fabric-workdir/msp/peer/
 export CORE_PEER_ADDRESS=peer1:7051
 
-~/fabric-samples/bin/peer
+nohup ~/fabric-samples/bin/peer &
