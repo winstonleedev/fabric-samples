@@ -36,7 +36,7 @@ ssh peer2 'mkdir -p /home/medium/fabric-workdir/msp/peer'
 rsync -r ./crypto-config/peerOrganizations/org1.example.com/peers/peer2.org1.example.com/msp/ peer2:/home/medium/fabric-workdir/msp/peer/
 rsync -r ./crypto-config/peerOrganizations/org1.example.com/users/ peer2:/home/medium/fabric-workdir/msp/users/
 rsync -r ./config/ peer2:/home/medium/fabric-workdir/configtx/
-ssh peer2 'bash -s' < (cat ./remote-bash/peer1-init.sh | sed -e 's|peer1|peer2|')
+ssh peer2 'bash -s' < ./remote-bash/peer2-init.sh
 
 ssh peer3 'bash -s' < ./remote-bash/common.sh
 rsync -r ./core3.yaml peer3:/home/medium/fabric-workdir/core.yaml
@@ -44,7 +44,7 @@ ssh peer3 'mkdir -p /home/medium/fabric-workdir/msp/peer'
 rsync -r ./crypto-config/peerOrganizations/org1.example.com/peers/peer3.org1.example.com/msp/ peer3:/home/medium/fabric-workdir/msp/peer/
 rsync -r ./crypto-config/peerOrganizations/org1.example.com/users/ peer3:/home/medium/fabric-workdir/msp/users/
 rsync -r ./config/ peer3:/home/medium/fabric-workdir/configtx/
-ssh peer3 'bash -s' < (cat ./remote-bash/peer1-init.sh | sed -e 's|peer1|peer3|')
+ssh peer3 'bash -s' < ./remote-bash/peer3-init.sh
 
 # wait for Hyperledger Fabric to start
 # incase of errors when running later commands, issue export FABRIC_START_TIMEOUT=<larger number>
@@ -53,5 +53,5 @@ export FABRIC_START_TIMEOUT=10
 sleep ${FABRIC_START_TIMEOUT}
 
 ssh peer1 'bash -s' < ./remote-bash/peer1-join.sh
-ssh peer2 'bash -s' < (cat ./remote-bash/peer2-join.sh | sed -e 's|peer1|peer2|')
-ssh peer3 'bash -s' < (cat ./remote-bash/peer2-join.sh | sed -e 's|peer1|peer3|')
+ssh peer2 'bash -s' < ./remote-bash/peer2-join.sh
+ssh peer3 'bash -s' < ./remote-bash/peer2-join.sh
