@@ -16,7 +16,7 @@ export MSYS_NO_PATHCONV=1
 
 ssh orderer0 'bash -s' < ./remote-bash/common.sh
 rsync -r ./orderer.yaml orderer0:/home/medium/fabric-workdir/orderer.yaml
-rsync -r ./config/ orderer0:/home/medium/fabric-workdir/configtx
+rsync -r ./config/ orderer0:/home/medium/fabric-workdir/configtx/
 ssh orderer0 'mkdir -p /home/medium/fabric-workdir/msp/orderer'
 rsync -r ./crypto-config/ordererOrganizations/example.com/orderers/orderer0.example.com orderer0:/home/medium/fabric-workdir/msp/orderer
 rsync -r ./crypto-config/peerOrganizations/org1.example.com/peers/peer1.org1.example.com/ orderer0:/home/medium/fabric-workdir/msp/peerOrg1
@@ -53,5 +53,8 @@ export FABRIC_START_TIMEOUT=10
 sleep ${FABRIC_START_TIMEOUT}
 
 ssh peer1 'bash -s' < ./remote-bash/peer1-join.sh
+rsync peer1:/home/medium/fabric-workdir/mychannel.block configtx/mychannel.block
+rsync configtx/mychannel.block peer2:/home/medium/fabric-workdir/mychannel.block
+rsync configtx/mychannel.block peer3:/home/medium/fabric-workdir/mychannel.block
 ssh peer2 'bash -s' < ./remote-bash/peer2-join.sh
 ssh peer3 'bash -s' < ./remote-bash/peer2-join.sh
