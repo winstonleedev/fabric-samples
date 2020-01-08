@@ -1,4 +1,4 @@
-
+killall -9 orderer
 export FABRIC_CFG_PATH="/home/medium/fabric-workdir"
 export FABRIC_LOGGING_SPEC=info
 export ORDERER_GENERAL_LISTENADDRESS=0.0.0.0

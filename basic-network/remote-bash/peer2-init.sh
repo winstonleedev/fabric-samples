@@ -1,4 +1,4 @@
-
+killall -9 peer
 export CORE_PEER_ID=peer2
 export FABRIC_LOGGING_SPEC=info
 export CORE_CHAINCODE_LOGGING_LEVEL=info

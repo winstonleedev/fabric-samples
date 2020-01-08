@@ -1,3 +1,5 @@
+killall -9 fabric-ca-server
+
 # sudo snap install go --classic
 /snap/bin/go get -u github.com/hyperledger/fabric-ca/cmd/...
 

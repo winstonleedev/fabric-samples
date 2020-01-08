@@ -10,9 +10,9 @@ set -ev
 # don't rewrite paths for Windows Git Bash users
 export MSYS_NO_PATHCONV=1
 
-# ssh fabric-ca 'bash -s' < ./remote-bash/common.sh
-# rsync -r ./crypto-config/peerOrganizations/org1.example.com/ca fabric-ca:/home/medium/fabric-workdir/fabric-ca-server-config
-# ssh fabric-ca 'bash -s' < ./remote-bash/fabric-ca.sh
+ssh fabric-ca 'bash -s' < ./remote-bash/common.sh
+rsync -r ./crypto-config/peerOrganizations/org1.example.com/ca fabric-ca:/home/medium/fabric-workdir/fabric-ca-server-config
+ssh fabric-ca 'bash -s' < ./remote-bash/fabric-ca.sh
 
 ssh orderer0 'bash -s' < ./remote-bash/common.sh
 rsync -r ./orderer.yaml orderer0:/home/medium/fabric-workdir/orderer.yaml
@@ -49,7 +49,7 @@ ssh peer3 'bash -s' < ./remote-bash/peer3-init.sh
 # wait for Hyperledger Fabric to start
 # incase of errors when running later commands, issue export FABRIC_START_TIMEOUT=<larger number>
 export FABRIC_START_TIMEOUT=10
-#echo ${FABRIC_START_TIMEOUT}
+echo FABRIC_START_TIMEOUT=${FABRIC_START_TIMEOUT}
 sleep ${FABRIC_START_TIMEOUT}
 
 ssh peer1 'bash -s' < ./remote-bash/peer1-join.sh
