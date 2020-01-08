@@ -172,6 +172,10 @@ function networkUp() {
   if [ "${IF_COUCHDB}" == "couchdb" ]; then
     COMPOSE_FILES="${COMPOSE_FILES} -f ${COMPOSE_FILE_COUCH}"
   fi
+
+  echo "docker-compose ${COMPOSE_FILES} up -d 2"
+  read -p "Please press Enter"
+
   IMAGE_TAG=$IMAGETAG docker-compose ${COMPOSE_FILES} up -d 2>&1
   docker ps -a
   if [ $? -ne 0 ]; then
@@ -190,16 +194,6 @@ function networkUp() {
     echo "Sleeping 15s to allow $CONSENSUS_TYPE cluster to complete booting"
     sleep 14
   fi
-
-  docker cp bin/peer peer0.org1.example.com:/usr/local/bin/peer
-  docker cp bin/peer peer1.org1.example.com:/usr/local/bin/peer
-  docker cp bin/peer peer0.org2.example.com:/usr/local/bin/peer
-  docker cp bin/peer peer1.org2.example.com:/usr/local/bin/peer
-  docker exec peer0.org1.example.com sh -c "chmod +x /usr/local/bin/peer;chown root:root /usr/local/bin/peer"
-  docker exec peer1.org1.example.com sh -c "chmod +x /usr/local/bin/peer;chown root:root /usr/local/bin/peer"
-  docker exec peer0.org2.example.com sh -c "chmod +x /usr/local/bin/peer;chown root:root /usr/local/bin/peer"
-  docker exec peer1.org2.example.com sh -c "chmod +x /usr/local/bin/peer;chown root:root /usr/local/bin/peer"
-  read -p "Please press Enter"
 
   # now run the end to end script
   docker exec cli scripts/script.sh $CHANNEL_NAME $CLI_DELAY $LANGUAGE $CLI_TIMEOUT $VERBOSE $NO_CHAINCODE  
