@@ -191,8 +191,14 @@ function networkUp() {
     sleep 14
   fi
 
+  # read -p "Press enter to continue"
+  docker cp bin/peer peer0.org1.example.com:/usr/local/bin/peer
+  docker cp bin/peer peer1.org1.example.com:/usr/local/bin/peer
+  docker cp bin/peer peer0.org2.example.com:/usr/local/bin/peer
+  docker cp bin/peer peer1.org2.example.com:/usr/local/bin/peer
+
   # now run the end to end script
-  docker exec cli scripts/script.sh $CHANNEL_NAME $CLI_DELAY $LANGUAGE $CLI_TIMEOUT $VERBOSE $NO_CHAINCODE
+  docker exec cli scripts/script.sh $CHANNEL_NAME $CLI_DELAY $LANGUAGE $CLI_TIMEOUT $VERBOSE $NO_CHAINCODE  
   if [ $? -ne 0 ]; then
     echo "ERROR !!!! Test failed"
     exit 1
