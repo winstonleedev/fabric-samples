@@ -191,11 +191,15 @@ function networkUp() {
     sleep 14
   fi
 
-  # read -p "Press enter to continue"
   docker cp bin/peer peer0.org1.example.com:/usr/local/bin/peer
   docker cp bin/peer peer1.org1.example.com:/usr/local/bin/peer
   docker cp bin/peer peer0.org2.example.com:/usr/local/bin/peer
   docker cp bin/peer peer1.org2.example.com:/usr/local/bin/peer
+  docker exec peer0.org1.example.com sh -c "chmod +x /usr/local/bin/peer;chown root:root /usr/local/bin/peer"
+  docker exec peer1.org1.example.com sh -c "chmod +x /usr/local/bin/peer;chown root:root /usr/local/bin/peer"
+  docker exec peer0.org2.example.com sh -c "chmod +x /usr/local/bin/peer;chown root:root /usr/local/bin/peer"
+  docker exec peer1.org2.example.com sh -c "chmod +x /usr/local/bin/peer;chown root:root /usr/local/bin/peer"
+  read -p "Please press Enter"
 
   # now run the end to end script
   docker exec cli scripts/script.sh $CHANNEL_NAME $CLI_DELAY $LANGUAGE $CLI_TIMEOUT $VERBOSE $NO_CHAINCODE  
