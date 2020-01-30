@@ -32,6 +32,7 @@ services:
       service: peer0.org1.example.com
     volumes:
       - ./bin/:/usr/local/bin/
+      - ./config/core1.yaml:/etc/hyperledger/fabric/core.yaml
     networks:
       - byfn
 
@@ -42,6 +43,7 @@ services:
       service: peer1.org1.example.com
     volumes:
       - ./bin/:/usr/local/bin/
+      - ./config/core2.yaml:/etc/hyperledger/fabric/core.yaml
     networks:
       - byfn
 
@@ -52,6 +54,7 @@ services:
       service: peer0.org2.example.com
     volumes:
       - ./bin/:/usr/local/bin/
+      - ./config/core3.yaml:/etc/hyperledger/fabric/core.yaml
     networks:
       - byfn
 
@@ -62,6 +65,7 @@ services:
       service: peer1.org2.example.com
     volumes:
       - ./bin/:/usr/local/bin/
+      - ./config/core4.yaml:/etc/hyperledger/fabric/core.yaml
     networks:
       - byfn
 
